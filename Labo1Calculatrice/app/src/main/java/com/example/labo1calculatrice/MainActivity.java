@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.mariuszgromada.math.mxparser.*;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView allInputsTxtView;
@@ -84,7 +86,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void calculateAllInputs() {
         String op = allInputsTxtView.getText().toString();
         op = op.replace(" ", "");
-
+        Expression exp = new Expression(op);
+        String result = String.valueOf(exp.calculate());
+        currInputTxtView.setText(result);
+        allInputsTxtView.setText("");
     }
 
     private boolean operationIsCalculable() {
@@ -159,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.minus_btn:
                 if(operationIsValid()){
-                    allInputsTxtView.append(currInputTxtView.getText()+" â”€ ");
+                    allInputsTxtView.append(currInputTxtView.getText()+" - ");
                     currInputTxtView.setText("");
                 }
                 break;
