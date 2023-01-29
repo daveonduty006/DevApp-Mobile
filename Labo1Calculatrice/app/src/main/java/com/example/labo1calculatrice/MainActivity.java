@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button eightBtn;
     private Button nineBtn;
 
+    private String number;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,12 +183,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.inverse_val_btn:
-                if(currInputTxtView.length() > 0){
+                number = currInputTxtView.getText().toString();
+                if(number.length() > 0 && number.charAt(0) != '-'){
                     currInputTxtView.setText("-"+currInputTxtView.getText());
+                }else if(number.length() > 0){
+                    currInputTxtView.setText(number.substring(1));
                 }
                 break;
             case R.id.equal_btn:
-                String number = currInputTxtView.getText().toString();
+                number = currInputTxtView.getText().toString();
                 if(number.length() > 0 && number.charAt(number.length()-1) != '.') {
                     allInputsTxtView.append(number+" ");
                     if(operationIsCalculable()){
