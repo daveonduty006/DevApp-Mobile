@@ -36,10 +36,10 @@
                 android:textSize="20sp"/>
 
             <Spinner
-                android:id="@+id/provinces_spinner"
+                android:id="@+id/table_provinces"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:prompt="Choisir une province"/>
+                android:prompt="@string/spinner1_prompt"/>
 
         </LinearLayout>
 
@@ -54,21 +54,24 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Province:"
+                android:text="Villes:"
                 android:padding="10dp"
                 android:textSize="20sp"/>
 
             <Spinner
-                android:id="@+id/cities_spinner"
+                android:id="@+id/table_villes"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:prompt="Choisir une ville"/>
+                android:prompt="@string/spinner2_prompt"/>
 
         </LinearLayout>
 
     </RelativeLayout>
 
-    <ImageView/>
-
+    <ImageView
+        android:id="@+id/flag_imgview"
+        android:layout_width="300dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="75dp"/>
 
 </LinearLayout>
