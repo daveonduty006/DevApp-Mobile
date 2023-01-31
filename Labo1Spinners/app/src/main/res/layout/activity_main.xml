@@ -72,6 +72,7 @@
         android:id="@+id/flag_imgview"
         android:layout_width="300dp"
         android:layout_height="150dp"
-        android:layout_marginTop="75dp"/>
+        android:layout_marginTop="75dp"
+        android:scaleType="fitXY"/>
 
 </LinearLayout>

@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.bumptech.glide.*;
+
 public class MainActivity extends AppCompatActivity {
 
     private final String[] VILLES_QUEBEC = {"Montréal", "Québec", "Laval", "Longueuil"};
@@ -38,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
     private void setImageProvince() {
         switch (provinceChoisie) {
             case "Québec":
-                imageProvince.setImageResource(R.drawable.quebec);
+                Glide.with(this).load(R.drawable.quebec).into(imageProvince);
                 break;
             case "Ontario":
-                imageProvince.setImageResource(R.drawable.ontario);
+                Glide.with(this).load(R.drawable.ontario).fitCenter().into(imageProvince);
                 break;
             case "Colombie-Britannique":
-                imageProvince.setImageResource(R.drawable.bc);
+                Glide.with(this).load(R.drawable.bc).fitCenter().into(imageProvince);
                 break;
             default:
                 System.out.println("Oops");
