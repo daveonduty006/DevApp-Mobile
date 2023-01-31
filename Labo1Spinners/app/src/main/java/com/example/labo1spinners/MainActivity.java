@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity {
                 Glide.with(this).load(R.drawable.quebec).into(imageProvince);
                 break;
             case "Ontario":
-                Glide.with(this).load(R.drawable.ontario).fitCenter().into(imageProvince);
+                Glide.with(this).load(R.drawable.ontario).into(imageProvince);
                 break;
             case "Colombie-Britannique":
-                Glide.with(this).load(R.drawable.bc).fitCenter().into(imageProvince);
+                Glide.with(this).load(R.drawable.bc).into(imageProvince);
                 break;
             default:
                 System.out.println("Oops");
