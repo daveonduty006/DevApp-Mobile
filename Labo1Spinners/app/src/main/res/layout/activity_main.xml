@@ -23,7 +23,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_margin="30dp"
             android:layout_alignParentLeft="true">
@@ -37,7 +36,7 @@
 
             <Spinner
                 android:id="@+id/table_provinces"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:prompt="@string/spinner1_prompt"/>
 
@@ -46,7 +45,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_margin="30dp"
             android:layout_alignParentRight="true">
@@ -60,7 +58,7 @@
 
             <Spinner
                 android:id="@+id/table_villes"
-                android:layout_width="fill_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:prompt="@string/spinner2_prompt"/>
 
