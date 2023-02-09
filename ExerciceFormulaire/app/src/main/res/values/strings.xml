@@ -1,12 +1,12 @@
 <resources>
 
     <string name="app_name">ExerciceFormulaire</string>
-    <string name="hyperlink">Vous êtes bien dans la partie inscription\n du <a href="https://www.cmaisonneuve.qc.ca/">Collège de Maisonneuve</a></string>
-    <string name="last_name"><u>Nom :</u></string>
-    <string name="first_name"><u>Prénom :</u></string>
-    <string name="gender"><u>Sexe :</u></string>
-    <string name="job"><u>Fonction :</u></string>
-    <string name="typeof_work"><u>Type de Travail :</u></string>
+    <string name="hyperlink">Vous êtes dans la partie inscription\n du <a href="https://www.cmaisonneuve.qc.ca/">Collège de Maisonneuve</a></string>
+    <string name="last_name"><u>Nom* :</u></string>
+    <string name="first_name"><u>Prénom* :</u></string>
+    <string name="gender"><u>Sexe* :</u></string>
+    <string name="job"><u>Fonction* :</u></string>
+    <string name="typeof_work"><u>Type de Travail* :</u></string>
     <string name="comments"><u>Commentaires :</u></string>
 
     <string-array name="job_array">

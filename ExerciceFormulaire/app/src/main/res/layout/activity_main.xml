@@ -33,7 +33,7 @@
             android:textSize="18sp"
             app:layout_constraintTop_toBottomOf="@id/greeting_txtview"
             app:layout_constraintBottom_toBottomOf="@id/form_tableview"
-            app:layout_constraintVertical_bias=".2"/>
+            app:layout_constraintVertical_bias=".1"/>
 
         <TableLayout
             android:id="@+id/form_tableview"
@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:id="@+id/lastname_txtview"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
 
                 <EditText
                     android:id="@+id/lastname_edittxt"
-                    android:layout_width="207dp"
+                    android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:layout_column="1"
                     android:background="@color/white"
@@ -72,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:id="@+id/firstname_txtview"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -95,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:id="@+id/gender_txtview"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -105,10 +108,11 @@
                     android:gravity="center"
                     android:background="@drawable/border"/>
                 <RadioGroup
+                    android:id="@+id/gender_radiogrp"
                     android:layout_column="1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_marginLeft="10dp">
                     <RadioButton
                         android:id="@+id/male_radiobtn"
@@ -133,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:id="@+id/job_txtview"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -162,6 +167,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:id="@+id/typeofwork_txtview"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -204,6 +210,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:id="@+id/comment_txtview"
                     android:layout_column="0"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -236,7 +243,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias=".1"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/cancel_btn"/>
+            app:layout_constraintRight_toLeftOf="@id/cancel_btn"
+            android:backgroundTint="@color/black"/>
 
         <Button
             android:id="@+id/cancel_btn"
@@ -247,7 +255,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintVertical_bias=".1"
             app:layout_constraintLeft_toRightOf="@id/send_btn"
-            app:layout_constraintRight_toRightOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            android:backgroundTint="@color/black"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
