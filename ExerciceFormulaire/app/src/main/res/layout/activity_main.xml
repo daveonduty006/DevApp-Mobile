@@ -48,14 +48,23 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/last_name"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:padding="5dp"
+                    android:gravity="center_horizontal"
                     android:background="@drawable/border"/>
-                <TextView
-                    android:text="Ctrl-O"
-                    android:padding="5dp"
+
+                <EditText
+                    android:id="@+id/lastname_edittxt"
+                    android:layout_width="207dp"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:background="@color/white"
+                    android:inputType="text"
                     android:layout_marginLeft="10dp"/>
             </TableRow>
             <TableRow
@@ -63,14 +72,22 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/first_name"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:padding="5dp"
+                    android:gravity="center_horizontal"
                     android:background="@drawable/border"/>
-                <TextView
-                    android:text="Ctrl-O"
-                    android:padding="5dp"
+                <EditText
+                    android:id="@+id/firstname_edittxt"
+                    android:layout_column="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:background="@color/white"
                     android:layout_marginLeft="10dp"/>
             </TableRow>
             <TableRow
@@ -78,44 +95,134 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/gender"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:padding="5dp"
+                    android:gravity="center"
                     android:background="@drawable/border"/>
-                <TextView
-                    android:text="Ctrl-O"
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"/>
+                <RadioGroup
+                    android:layout_column="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp">
+                    <RadioButton
+                        android:id="@+id/male_radiobtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textStart"
+                        android:layout_gravity="start"
+                        android:text="Homme"/>
+                    <RadioButton
+                        android:id="@+id/female_radiobtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layoutDirection="rtl"
+                        android:textAlignment="textStart"
+                        android:layout_gravity="start"
+                        android:text="Femme"/>
+                </RadioGroup>
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/job"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:padding="5dp"
+                    android:gravity="center"
+                    android:background="@drawable/border"/>
+                <LinearLayout
+                    android:layout_column="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginLeft="10dp">
+                    <Spinner
+                        android:id="@+id/job_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="30dp"
+                        android:background="@color/white"/>
+                </LinearLayout>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border">
+                <TextView
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/typeof_work"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:padding="5dp"
+                    android:gravity="center"
                     android:background="@drawable/border"/>
-                <TextView
-                    android:text="Ctrl-O"
-                    android:padding="5dp"
-                    android:layout_marginLeft="10dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_column="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp">
+                    <CheckBox
+                        android:id="@+id/fulltime_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Temps plein"/>
+                    <CheckBox
+                        android:id="@+id/parttime_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Temps partiel"/>
+                    <CheckBox
+                        android:id="@+id/oncall_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Occasionnel"/>
+                    <CheckBox
+                        android:id="@+id/intern_checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Journalier"/>
+                </LinearLayout>
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border">
                 <TextView
+                    android:layout_column="0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/comments"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:padding="5dp"
+                    android:gravity="center"
                     android:background="@drawable/border"/>
-                <TextView
-                    android:text="Ctrl-O"
-                    android:padding="5dp"
+
+                <EditText
+                    android:id="@+id/comment_edittxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:background="@color/white"
+                    android:inputType="text"
+                    android:minHeight="150dp"
+                    android:layout_marginVertical="5dp"
                     android:layout_marginLeft="10dp"/>
             </TableRow>
         </TableLayout>
