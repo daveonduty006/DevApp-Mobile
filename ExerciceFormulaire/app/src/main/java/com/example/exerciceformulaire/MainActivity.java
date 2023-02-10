@@ -3,6 +3,7 @@ package com.example.exerciceformulaire;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -129,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void setViews() {
+        TextView hyperlink = findViewById(R.id.institution_txtview);
+        hyperlink.setMovementMethod(LinkMovementMethod.getInstance());
         lastnameEditTxt = findViewById(R.id.lastname_edittxt);
         firstnameEditTxt = findViewById(R.id.firstname_edittxt);
         genderRadioGrp = findViewById(R.id.gender_radiogrp);
