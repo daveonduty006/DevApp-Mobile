@@ -3,15 +3,27 @@ package com.example.labo2;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
             new Produit(9,"Mishi Kobe Niku",3,485,29),
             new Produit(10,"Ikura",4,155,31)
     };
+    private Toolbar myToolbar;
+    private ListView listView;
+    private PopupWindow popupWindow;
     private TableLayout tableLayout;
     private ImageButton clearBtn;
 
@@ -36,21 +51,60 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Set up the action bar
-        Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Set up the clear button
-        clearBtn = findViewById(R.id.clear_btn);
 
         // Set up the table layout
         tableLayout = findViewById(R.id.table_layout);
         tableLayout.setBackgroundResource(R.drawable.row_border);
 
-        //
-        remplirTableLayout();
+        // Inflate the popup window layout
+        View popupView = getLayoutInflater().inflate(R.layout.popup_window_layout, null);
 
+        // Create a new popup window
+        popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        // Set the background color of the popup window
+        popupWindow.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        // Get a reference to the ListView in the popup window layout:
+        listView = popupView.findViewById(R.id.category_list);
+
+        // Create an ArrayAdapter to populate the ListView with your product categories
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Produit.CODES_CATEG);
+
+        // Set the adapter for the ListView
+        listView.setAdapter(adapter);
+
+        // Set an onItemClickListener for the ListView to get the selected category and show it in a Toast
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String category = (String) parent.getItemAtPosition(position);
+                Toast.makeText(getApplicationContext(), "Selected category: " + category, Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
+            }
+        });
+
+        // Set up the clear button
+        clearBtn = findViewById(R.id.clear_btn);
+        remplirTableLayout();
+        clearBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int childCount = tableLayout.getChildCount();
+                for (int i = childCount - 1; i > 0; i--) { // start from index 1
+                    View child = tableLayout.getChildAt(i);
+                    if (child instanceof TableRow) {
+                        tableLayout.removeView(child); // remove the row
+                    }
+                }
+            }
+        });
     }
+
+
 
     private void remplirTableLayout() {
         for(Produit unProduit : TAB_PRODUITS) {
@@ -89,10 +143,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         // Handle menu item clicks
         if (id == R.id.lister_tab) {
-            Toast.makeText(this, "tab lister cliqué", Toast.LENGTH_SHORT).show();
+            remplirTableLayout();
             return true;
         } else if (id == R.id.categ_tab) {
-            Toast.makeText(this, "tab catégorie cliqué", Toast.LENGTH_SHORT).show();
+            popupWindow.showAtLocation(myToolbar, Gravity.CENTER, 0, 0);
             return true;
         } else if (id == R.id.total_tab) {
             Toast.makeText(this, "tab total cliqué", Toast.LENGTH_SHORT).show();

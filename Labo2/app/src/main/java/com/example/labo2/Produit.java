@@ -2,7 +2,7 @@ package com.example.labo2;
 
 public class Produit {
 
-    private static final String CODES_CATEG[] = {
+    public static final String CODES_CATEG[] = {
             "Boissons",
             "Condiments",
             "Produits secs",
