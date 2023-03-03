@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/MyMenuStyle">
+
+    <item
+        android:id="@+id/lister_tab"
+        android:title="Lister"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/categ_tab"
+        android:title="Catégorie"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/total_tab"
+        android:title="Total"
+        app:showAsAction="always"/>
+
+</menu>
