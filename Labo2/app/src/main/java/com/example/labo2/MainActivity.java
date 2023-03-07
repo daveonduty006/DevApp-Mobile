@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,47 +50,64 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setToolbar();
+        setTableLayout();
+        remplirTableLayout(TAB_PRODUITS);
+        setCategSelectionPopUpWindow();
+        setTableClearButton();
+    }
 
-        // Set up the action bar
-        myToolbar = findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    private Produit[] creerSubArraySelonCateg(String categStr) {
+        Produit[] tableauFiltre = Arrays.stream(TAB_PRODUITS)
+                .filter(p -> categStr.equals(p.getCategString()))
+                .toArray(Produit[]::new);
+        return tableauFiltre;
+    }
 
-        // Set up the table layout
-        tableLayout = findViewById(R.id.table_layout);
-        tableLayout.setBackgroundResource(R.drawable.row_border);
+    private void remplirTableLayout(Produit[] tableauDeProduits) {
+        for(Produit unProduit : tableauDeProduits) {
+            LayoutInflater inflater = LayoutInflater.from(this);
+            TableRow newRow = (TableRow) inflater.inflate(R.layout.table_row_layout, null);
+            newRow.setBackgroundResource(R.drawable.row_border);
+            //
+            TextView colId = newRow.findViewById(R.id.id_txtview);
+            TextView colNom = newRow.findViewById(R.id.nom_txtview);
+            TextView colCategStr = newRow.findViewById(R.id.categStr_txtview);
+            TextView colPrix = newRow.findViewById(R.id.prix_txtview);
+            TextView colQte = newRow.findViewById(R.id.qte_txtview);
+            //
+            colId.setText(String.valueOf(unProduit.getId()));
+            colNom.setText(unProduit.getNom());
+            colCategStr.setText(unProduit.getCategString());
+            colPrix.setText("$" + String.format("%.2f", unProduit.getPrix()));
+            colQte.setText(String.valueOf(unProduit.getQte()));
+            //
+            tableLayout.addView(newRow);
+        }
+    }
 
-        // Inflate the popup window layout
+    private void setCategSelectionPopUpWindow() {
         View popupView = getLayoutInflater().inflate(R.layout.popup_window_layout, null);
-
-        // Create a new popup window
         popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
-        // Set the background color of the popup window
         popupWindow.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
-        // Get a reference to the ListView in the popup window layout:
+        //
         listView = popupView.findViewById(R.id.category_list);
-
-        // Create an ArrayAdapter to populate the ListView with your product categories
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Produit.CODES_CATEG);
-
-        // Set the adapter for the ListView
         listView.setAdapter(adapter);
-
-        // Set an onItemClickListener for the ListView to get the selected category and show it in a Toast
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String category = (String) parent.getItemAtPosition(position);
-                Toast.makeText(getApplicationContext(), "Selected category: " + category, Toast.LENGTH_SHORT).show();
+                Produit[] tabProduitsFiltre = creerSubArraySelonCateg(category);
+                clearBtn.performClick();
+                remplirTableLayout(tabProduitsFiltre);
                 popupWindow.dismiss();
             }
         });
+    }
 
-        // Set up the clear button
+    private void setTableClearButton() {
         clearBtn = findViewById(R.id.clear_btn);
-        remplirTableLayout();
         clearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,28 +122,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void setTableLayout() {
+        tableLayout = findViewById(R.id.table_layout);
+        tableLayout.setBackgroundResource(R.drawable.row_border);
+    }
 
-
-    private void remplirTableLayout() {
-        for(Produit unProduit : TAB_PRODUITS) {
-            LayoutInflater inflater = LayoutInflater.from(this);
-            TableRow newRow = (TableRow) inflater.inflate(R.layout.table_row_layout, null);
-            newRow.setBackgroundResource(R.drawable.row_border);
-            //
-            TextView colId = newRow.findViewById(R.id.id_txtview);
-            TextView colNom = newRow.findViewById(R.id.nom_txtview);
-            TextView colCategStr = newRow.findViewById(R.id.categStr_txtview);
-            TextView colPrix = newRow.findViewById(R.id.prix_txtview);
-            TextView colQte = newRow.findViewById(R.id.qte_txtview);
-            //
-            colId.setText(String.valueOf(unProduit.getId()));
-            colNom.setText(unProduit.getNom());
-            colCategStr.setText(unProduit.getCategString());
-            colPrix.setText(String.valueOf(unProduit.getPrix()));
-            colQte.setText(String.valueOf(unProduit.getQte()));
-            //
-            tableLayout.addView(newRow);
-        }
+    private void setToolbar() {
+        myToolbar = findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -143,7 +148,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         // Handle menu item clicks
         if (id == R.id.lister_tab) {
-            remplirTableLayout();
+            clearBtn.performClick();
+            remplirTableLayout(TAB_PRODUITS);
             return true;
         } else if (id == R.id.categ_tab) {
             popupWindow.showAtLocation(myToolbar, Gravity.CENTER, 0, 0);
