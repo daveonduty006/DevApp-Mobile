@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Examen2</string>
+
+    <string-array name="table_films">
+        <item>Action</item>
+        <item>Drame</item>
+        <item>Comedie</item>
+        <item>Enfants</item>
+    </string-array>
+</resources>
