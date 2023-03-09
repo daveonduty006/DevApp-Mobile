@@ -23,6 +23,16 @@
         android:textColor="@color/black"
         android:gravity="center"/>
 
+    <TextView
+        android:id="@+id/total_txtview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintTop_toBottomOf="@id/my_toolbar"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:paddingLeft="10dp"
+        android:layout_marginTop="50dp"/>
 
     <ScrollView
         android:id="@+id/table_container"

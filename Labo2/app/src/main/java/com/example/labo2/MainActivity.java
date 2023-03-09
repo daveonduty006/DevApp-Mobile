@@ -45,16 +45,32 @@ public class MainActivity extends AppCompatActivity {
     private PopupWindow popupWindow;
     private TableLayout tableLayout;
     private ImageButton clearBtn;
+    private TextView totalTxtView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        totalTxtView = findViewById(R.id.total_txtview);
         setToolbar();
         setTableLayout();
         remplirTableLayout(TAB_PRODUITS);
         setCategSelectionPopUpWindow();
         setTableClearButton();
+    }
+
+    private void showTotal() {
+        double inventoryValue = 0;
+        for (int i = 1; i < tableLayout.getChildCount(); i++) {
+            TableRow row = (TableRow) tableLayout.getChildAt(i);
+            TextView quantityView = (TextView) row.getChildAt(4);
+            TextView unitPriceView = (TextView) row.getChildAt(3);
+            int quantity = Integer.parseInt(quantityView.getText().toString());
+            String unitPriceStr = unitPriceView.getText().toString();
+            double unitPrice = Double.parseDouble(unitPriceStr.replace("$",""));
+            inventoryValue += quantity * unitPrice;
+        }
+        totalTxtView.setText("La valeur de l'inventaire présentement dans le tableau est de $"+String.format("%.2f", inventoryValue));
     }
 
     private Produit[] creerSubArraySelonCateg(String categStr) {
@@ -65,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void remplirTableLayout(Produit[] tableauDeProduits) {
+        totalTxtView.setText("");
         for(Produit unProduit : tableauDeProduits) {
             LayoutInflater inflater = LayoutInflater.from(this);
             TableRow newRow = (TableRow) inflater.inflate(R.layout.table_row_layout, null);
@@ -111,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         clearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                totalTxtView.setText("");
                 int childCount = tableLayout.getChildCount();
                 for (int i = childCount - 1; i > 0; i--) { // start from index 1
                     View child = tableLayout.getChildAt(i);
@@ -155,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
             popupWindow.showAtLocation(myToolbar, Gravity.CENTER, 0, 0);
             return true;
         } else if (id == R.id.total_tab) {
-            Toast.makeText(this, "tab total cliqué", Toast.LENGTH_SHORT).show();
+            showTotal();
             return true;
         }
         return super.onOptionsItemSelected(item);
