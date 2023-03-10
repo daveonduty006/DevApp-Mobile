@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".RechercherActivity"
-        android:background="#dbdbdb">
+        android:background="#cf3c3c">
 
         <TextView
             android:id="@+id/prompt_spinner"

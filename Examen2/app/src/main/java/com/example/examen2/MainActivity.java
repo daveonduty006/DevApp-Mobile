@@ -92,8 +92,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setToolbar() {
         myToolbar = findViewById(R.id.my_toolbar);
+        myToolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_bg, getTheme()));
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher);
     }
 
     @Override
@@ -117,10 +119,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             rendreVisibleFormEnreg();
             return true;
         } else if (id == R.id.lister_tab) {
-            lister();
+            if(tabFilms != null){
+                lister();
+            }else {
+                Toast.makeText(this, "Veuillez charger les films avant svp", Toast.LENGTH_LONG).show();
+            }
             return true;
         } else if (id == R.id.rechercher_tab) {
-            rechercher();
+            if(tabFilms != null){
+                rechercher();
+            }else {
+                Toast.makeText(this, "Veuillez charger les films avant svp", Toast.LENGTH_LONG).show();
+            }
             return true;
         } else if (id == R.id.quitter_tab) {
             finish();
@@ -136,7 +146,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 enregistrer();
             break;
             case R.id.effacer_btn:
-                //
+                numEditTxt.setText("");
+                titreEditTxt.setText("");
+                classementEditTxt.setText("");
+                categorieEditTxt.setText("");
             break;
         }
     }

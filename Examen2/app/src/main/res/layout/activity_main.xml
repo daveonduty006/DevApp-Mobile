@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#dbdbdb">
+    android:background="#cf3c3c">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent"
         android:theme="@style/Theme.AppCompat.DayNight"
-        android:background="@color/white"/>
+        android:background="@color/black"/>
 
     <LinearLayout
         android:id="@+id/form_container"
