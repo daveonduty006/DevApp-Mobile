@@ -1,99 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RechercherActivity"
-    android:background="#dbdbdb">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/prompt_spinner"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Choisissez une catégorie"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/categ_spinner"/>
+        android:layout_height="match_parent"
+        tools:context=".RechercherActivity"
+        android:background="#dbdbdb">
 
-    <Spinner
-        android:id="@+id/categ_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/table_films"
-        android:layout_marginHorizontal="100dp"
-        app:layout_constraintTop_toBottomOf="@id/prompt_spinner"
-        app:layout_constraintBottom_toTopOf="@id/table_container"/>
-
-    <ScrollView
-        android:id="@+id/table_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/categ_spinner"
-        app:layout_constraintBottom_toTopOf="@id/retourner_btn">
-
-        <TableLayout
-            android:id="@+id/table_layout"
+        <TextView
+            android:id="@+id/prompt_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="Choisissez une catégorie"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"/>
 
-            <TableRow
+        <Spinner
+            android:id="@+id/categ_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/table_films"
+            android:background="@drawable/spinner_background"
+            android:layout_marginHorizontal="100dp"
+            app:layout_constraintTop_toBottomOf="@id/prompt_spinner"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:id="@+id/table_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/categ_spinner"
+            android:layout_marginTop="40dp">
+
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="numFilm"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:paddingHorizontal="8dp"/>
+                <TableLayout
+                    android:id="@+id/table_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Titre"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:paddingHorizontal="8dp"/>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Classement"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:paddingHorizontal="8dp"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="numFilm"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingHorizontal="8dp"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Catégorie"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:paddingHorizontal="8dp"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Titre"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingHorizontal="8dp"/>
 
-            </TableRow>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Classement"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingHorizontal="8dp"/>
 
-        </TableLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Catégorie"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:paddingHorizontal="8dp"/>
 
-    </ScrollView>
+                    </TableRow>
 
-    <Button
-        android:id="@+id/retourner_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Retourner"
-        android:layout_marginHorizontal="100dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/table_container"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+                </TableLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/retourner_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Retourner"
+            app:layout_constraintTop_toBottomOf="@id/table_container"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="100dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintVertical_bias=".95"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

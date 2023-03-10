@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tabFilms.add(new Film(2452, "Interstellaire", 5, "Drame"));
         tabFilms.add(new Film(3210, "Good Cop Bad Cop", 3.5, "Comedie"));
         tabFilms.add(new Film(4211, "Reine des Neiges", 4, "Enfants"));
+        for(int i = 0; i < 25; i++){
+            tabFilms.add(new Film(4211, "Reine des Neiges", 4, "Enfants"));
+        }
         Toast.makeText(this, "Films chargés", Toast.LENGTH_SHORT).show();
     }
 
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void setToolbar() {
         myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override

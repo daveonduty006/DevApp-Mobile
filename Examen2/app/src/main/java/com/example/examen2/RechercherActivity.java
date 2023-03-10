@@ -76,8 +76,7 @@ public class RechercherActivity extends AppCompatActivity {
     private void setSpinner() {
         spinnerCateg = findViewById(R.id.categ_spinner);
         categs = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.table_films)));
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, R.layout.custom_spinner_layout,
                 categs);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCateg.setAdapter(dataAdapter);
