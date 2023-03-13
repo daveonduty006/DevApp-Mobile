@@ -10,19 +10,19 @@ public class Exercice {
     private String description;
     private String instructions;
     private String urlVideo;
-    private int idImage;
+    private String cheminImage;
 
     public Exercice() {
     }
 
-    public Exercice(int id, String nom, String categorie, String description, String instructions, String urlVideo, int idImage) {
+    public Exercice(int id, String nom, String categorie, String description, String instructions, String urlVideo, String cheminImage) {
         this.id = id;
         this.nom = nom;
         this.categorie = categorie;
         this.description = description;
         this.instructions = instructions;
         this.urlVideo = urlVideo;
-        this.idImage = idImage;
+        this.cheminImage = cheminImage;
     }
 
     public int getId() {
@@ -73,12 +73,12 @@ public class Exercice {
         this.urlVideo = urlVideo;
     }
 
-    public int getIdImage() {
-        return idImage;
+    public String getCheminImage() {
+        return cheminImage;
     }
 
-    public void setIdImage(int idImage) {
-        this.idImage = idImage;
+    public void setCheminImage(String cheminImage) {
+        this.cheminImage = cheminImage;
     }
 
 }

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
 
 import com.bumptech.glide.*;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -19,10 +20,10 @@ import com.bumptech.glide.request.RequestOptions;
 public class MyCategListAdapter extends RecyclerView.Adapter<MyCategViewHolder> {
 
     Context context;
-    List<Exercice> categories;
+    Map<String,Integer> categories;
     MyCategSelectListener selectListener;
 
-    public MyCategListAdapter(Context context, List<Exercice> categories, MyCategSelectListener selectListener) {
+    public MyCategListAdapter(Context context, Map<String,Integer> categories, MyCategSelectListener selectListener) {
         this.context = context;
         this.categories = categories;
         this.selectListener = selectListener;
@@ -36,8 +37,9 @@ public class MyCategListAdapter extends RecyclerView.Adapter<MyCategViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyCategViewHolder holder, int position) {
-        String nomCategorie = categories.get(position).getCategorie();
+        String nomCategorie = (String) categories.keySet().toArray()[position];
         //
+        /*
         int idDrawable = categories.get(position).getIdImage();
         Glide.with(context)
                 .load(idDrawable)
@@ -51,6 +53,7 @@ public class MyCategListAdapter extends RecyclerView.Adapter<MyCategViewHolder> 
                 selectListener.onCategBtnClicked(nomCategorie);
             }
         });
+         */
     }
 
     @Override

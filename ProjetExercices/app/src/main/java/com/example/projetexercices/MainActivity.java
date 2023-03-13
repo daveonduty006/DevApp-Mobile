@@ -4,12 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,9 +22,25 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements MyCategSelectListener {
+
+    private final static HashMap<String,Integer> CATEGORIES = new HashMap(Map.of(
+            "Abdominaux", R.drawable.crunchs_sol,
+            "Avant-Bras", R.drawable.flexions_poignets_barre,
+            "Biceps", R.drawable.curl_barre,
+            "Cuisses", R.drawable.squat,
+            "Dos", R.drawable.tirages_poitrine,
+            "Pectoraux", R.drawable.developpes_couche_barre,
+            "Triceps", R.drawable.barre_front
+    ));
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -31,7 +52,11 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setMyToolbar();
-        setMyRecyclerView();
+        try {
+            setMyRecyclerView();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         setMyDrawerLayout();
     }
 
@@ -66,21 +91,30 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
         setMyNavigationView();
     }
 
-    private void setMyRecyclerView() {
+    private void setMyRecyclerView() throws IOException {
         myRecyclerView = findViewById(R.id.my_recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(gridLayoutManager);
         //
         ArrayList<Exercice> exercices = new ArrayList<>();
-        exercices.add(new Exercice(1, "test", "Abdominaux", "test", "test", "www.test.com", R.drawable.crunchs_sol));
-        exercices.add(new Exercice(2, "test", "Avant-Bras", "test", "test", "www.test.com", R.drawable.flexions_poignets_barre));
-        exercices.add(new Exercice(3, "test", "Biceps", "test", "test", "www.test.com", R.drawable.curl_barre));
-        exercices.add(new Exercice(4, "test", "Cuisses", "test", "test", "www.test.com", R.drawable.squat));
-        exercices.add(new Exercice(5, "test", "Dos", "test", "test", "www.test.com", R.drawable.tirages_poitrine));
-        exercices.add(new Exercice(6, "test", "Pectoraux", "test", "test", "www.test.com", R.drawable.developpes_couche_barre));
-        exercices.add(new Exercice(7, "test", "Triceps", "test", "test", "www.test.com", R.drawable.barre_front));
-        //
-        myRecyclerView.setAdapter(new MyCategListAdapter(getApplicationContext(), exercices, this));
+        File directory = this.getFilesDir();
+        int idDrawable;
+        Drawable drawable;
+        Bitmap bitmap;
+        String fileName;
+        File file;
+        FileOutputStream fos;
+        for(int i=0; i < 7; i++){
+            idDrawable = CATEGORIES.get(CATEGORIES.keySet().toArray()[i]);
+            drawable = ContextCompat.getDrawable(this, idDrawable);
+            bitmap = ((BitmapDrawable) drawable).getBitmap();
+            fileName = getResources().getResourceEntryName(idDrawable) + ".png"; // add file extension
+            file = new File(directory, fileName);
+            fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.close();
+        }
+        myRecyclerView.setAdapter(new MyCategListAdapter(getApplicationContext(), CATEGORIES, this));
     }
 
     private void setMyToolbar() {
