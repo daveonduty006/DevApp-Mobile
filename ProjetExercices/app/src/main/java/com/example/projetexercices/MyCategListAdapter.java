@@ -20,10 +20,12 @@ public class MyCategListAdapter extends RecyclerView.Adapter<MyCategViewHolder> 
 
     Context context;
     List<Exercice> categories;
+    MyCategSelectListener selectListener;
 
-    public MyCategListAdapter(Context context, List<Exercice> categories) {
+    public MyCategListAdapter(Context context, List<Exercice> categories, MyCategSelectListener selectListener) {
         this.context = context;
         this.categories = categories;
+        this.selectListener = selectListener;
     }
 
     @NonNull
@@ -35,16 +37,18 @@ public class MyCategListAdapter extends RecyclerView.Adapter<MyCategViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull MyCategViewHolder holder, int position) {
         String nomCategorie = categories.get(position).getCategorie();
+        //
         int idDrawable = categories.get(position).getIdImage();
         Glide.with(context)
                 .load(idDrawable)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(25)))
                 .into(holder.imageView);
+        //
         holder.button.setText(nomCategorie);
         holder.button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, nomCategorie, Toast.LENGTH_SHORT).show();
+                selectListener.onCategBtnClicked(nomCategorie);
             }
         });
     }

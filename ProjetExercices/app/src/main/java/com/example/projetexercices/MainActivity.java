@@ -19,7 +19,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyCategSelectListener {
 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
@@ -72,15 +72,15 @@ public class MainActivity extends AppCompatActivity {
         myRecyclerView.setLayoutManager(gridLayoutManager);
         //
         ArrayList<Exercice> exercices = new ArrayList<>();
-        exercices.add(new Exercice(1, "test", "abdominaux", "test", "test", "www.test.com", R.drawable.crunchs_sol));
-        exercices.add(new Exercice(2, "test", "avant-bras", "test", "test", "www.test.com", R.drawable.flexions_poignets_barre));
-        exercices.add(new Exercice(3, "test", "biceps", "test", "test", "www.test.com", R.drawable.curl_barre));
-        exercices.add(new Exercice(4, "test", "cuisses", "test", "test", "www.test.com", R.drawable.squat));
-        exercices.add(new Exercice(5, "test", "dos", "test", "test", "www.test.com", R.drawable.tirages_poitrine));
-        exercices.add(new Exercice(6, "test", "pectoraux", "test", "test", "www.test.com", R.drawable.developpes_couche_barre));
-        exercices.add(new Exercice(7, "test", "triceps", "test", "test", "www.test.com", R.drawable.barre_front));
+        exercices.add(new Exercice(1, "test", "Abdominaux", "test", "test", "www.test.com", R.drawable.crunchs_sol));
+        exercices.add(new Exercice(2, "test", "Avant-Bras", "test", "test", "www.test.com", R.drawable.flexions_poignets_barre));
+        exercices.add(new Exercice(3, "test", "Biceps", "test", "test", "www.test.com", R.drawable.curl_barre));
+        exercices.add(new Exercice(4, "test", "Cuisses", "test", "test", "www.test.com", R.drawable.squat));
+        exercices.add(new Exercice(5, "test", "Dos", "test", "test", "www.test.com", R.drawable.tirages_poitrine));
+        exercices.add(new Exercice(6, "test", "Pectoraux", "test", "test", "www.test.com", R.drawable.developpes_couche_barre));
+        exercices.add(new Exercice(7, "test", "Triceps", "test", "test", "www.test.com", R.drawable.barre_front));
         //
-        myRecyclerView.setAdapter(new MyCategListAdapter(getApplicationContext(), exercices));
+        myRecyclerView.setAdapter(new MyCategListAdapter(getApplicationContext(), exercices, this));
     }
 
     private void setMyToolbar() {
@@ -119,4 +119,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onCategBtnClicked(String categorie) {
+        Toast.makeText(this, categorie, Toast.LENGTH_SHORT).show();
+    }
 }
