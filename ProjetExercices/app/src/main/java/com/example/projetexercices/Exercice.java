@@ -1,6 +1,8 @@
 package com.example.projetexercices;
 
-public class Exercices {
+import android.widget.ImageView;
+
+public class Exercice {
 
     private int id;
     private String nom;
@@ -8,32 +10,19 @@ public class Exercices {
     private String description;
     private String instructions;
     private String urlVideo;
-    private String cheminImage;
+    private int idImage;
 
-    public Exercices() {
+    public Exercice() {
     }
 
-    public Exercices(int id, String nom, String categorie, String description, String instructions, String urlVideo, String cheminImage) {
+    public Exercice(int id, String nom, String categorie, String description, String instructions, String urlVideo, int idImage) {
         this.id = id;
         this.nom = nom;
         this.categorie = categorie;
         this.description = description;
         this.instructions = instructions;
         this.urlVideo = urlVideo;
-        this.cheminImage = cheminImage;
-    }
-
-    @Override
-    public String toString() {
-        return "Exercices{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", categorie='" + categorie + '\'' +
-                ", description='" + description + '\'' +
-                ", instructions='" + instructions + '\'' +
-                ", urlVideo='" + urlVideo + '\'' +
-                ", cheminImage='" + cheminImage + '\'' +
-                '}';
+        this.idImage = idImage;
     }
 
     public int getId() {
@@ -84,11 +73,12 @@ public class Exercices {
         this.urlVideo = urlVideo;
     }
 
-    public String getCheminImage() {
-        return cheminImage;
+    public int getIdImage() {
+        return idImage;
     }
 
-    public void setCheminImage(String cheminImage) {
-        this.cheminImage = cheminImage;
+    public void setIdImage(int idImage) {
+        this.idImage = idImage;
     }
+
 }
