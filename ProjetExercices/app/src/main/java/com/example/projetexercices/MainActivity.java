@@ -247,6 +247,15 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
         //
         ExerciceDbHelper exerciceDbHelper = new ExerciceDbHelper(this);
         List<Exercice> exercices = new ArrayList<>();
+        exercices.add(new Exercice(-1, nom1, categorie1, description1, instructions1, urlVideo1, cheminImage1));
+        exercices.add(new Exercice(-1, nom2, categorie2, description2, instructions2, urlVideo2, cheminImage2));
+        exercices.add(new Exercice(-1, nom3, categorie3, description3, instructions3, urlVideo3, cheminImage3));
+        exercices.add(new Exercice(-1, nom4, categorie4, description4, instructions4, urlVideo4, cheminImage4));
+        exercices.add(new Exercice(-1, nom5, categorie5, description5, instructions5, urlVideo5, cheminImage5));
+        exercices.add(new Exercice(-1, nom6, categorie6, description6, instructions6, urlVideo6, cheminImage6));
+        exercices.add(new Exercice(-1, nom7, categorie7, description7, instructions7, urlVideo7, cheminImage7));
+        exercices.add(new Exercice(-1, nom8, categorie8, description8, instructions8, urlVideo8, cheminImage8));
+        exercices.add(new Exercice(-1, nom9, categorie9, description9, instructions9, urlVideo9, cheminImage9));
         exercices.add(new Exercice(-1, nom10, categorie10, description10, instructions10, urlVideo10, cheminImage10));
         exercices.add(new Exercice(-1, nom11, categorie11, description11, instructions11, urlVideo11, cheminImage11));
         exercices.add(new Exercice(-1, nom12, categorie12, description12, instructions12, urlVideo12, cheminImage12));
