@@ -16,6 +16,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.io.File;;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
             "Biceps", R.drawable.biceps,
             "Cuisses", R.drawable.cuisses,
             "Dos", R.drawable.dos,
+            "Épaules", R.drawable.epaules,
+            "Mollets", R.drawable.mollets,
             "Pectoraux", R.drawable.pectoraux,
             "Triceps", R.drawable.triceps
     ));
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
         String fileName;
         File file;
         FileOutputStream fos;
-        for(int i=0; i < 7; i++){
+        for(int i=0; i < CATEGORIES.size(); i++){
             idDrawable = CATEGORIES.get(CATEGORIES.keySet().toArray()[i]);
             drawable = ContextCompat.getDrawable(this, idDrawable);
             bitmap = ((BitmapDrawable) drawable).getBitmap();
@@ -111,7 +115,28 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.close();
         }
-        //
+        /*     COMPRESSION ET STOCKAGE DES IMAGES DES EXERCICES DE TEST DANS LE STORAGE INTERNE DE L'APP
+        ArrayList<Integer> drawableIds = new ArrayList<>();
+        drawableIds.add(R.drawable.curl_barre);
+        drawableIds.add(R.drawable.barre_front);
+        drawableIds.add(R.drawable.crunchs_sol);
+        drawableIds.add(R.drawable.developpes_couche_barre);
+        drawableIds.add(R.drawable.flexions_poignets_barre);
+        drawableIds.add(R.drawable.squat);
+        drawableIds.add(R.drawable.tirages_poitrine);
+        drawableIds.add(R.drawable.developpes_haltere);
+        drawableIds.add(R.drawable.mollets_debout);
+        for(int i=0; i < drawableIds.size(); i++){
+            idDrawable = drawableIds.get(i);
+            drawable = ContextCompat.getDrawable(this, idDrawable);
+            bitmap = ((BitmapDrawable) drawable).getBitmap();
+            fileName = getResources().getResourceEntryName(idDrawable) + ".png"; // add file extension
+            file = new File(directory, fileName);
+            fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.close();
+        }
+        */
         myRecyclerView.setAdapter(new MyCategListAdapter(getApplicationContext(), CATEGORIES, this));
     }
 
