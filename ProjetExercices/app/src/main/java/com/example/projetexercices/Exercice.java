@@ -1,10 +1,8 @@
 package com.example.projetexercices;
 
-import android.widget.ImageView;
-
 public class Exercice {
 
-    private int id;
+    private long id;
     private String nom;
     private String categorie;
     private String description;
@@ -15,7 +13,7 @@ public class Exercice {
     public Exercice() {
     }
 
-    public Exercice(int id, String nom, String categorie, String description, String instructions, String urlVideo, String cheminImage) {
+    public Exercice(long id, String nom, String categorie, String description, String instructions, String urlVideo, String cheminImage) {
         this.id = id;
         this.nom = nom;
         this.categorie = categorie;
@@ -25,11 +23,11 @@ public class Exercice {
         this.cheminImage = cheminImage;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

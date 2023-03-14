@@ -39,8 +39,7 @@ public class MyCategListAdapter extends RecyclerView.Adapter<MyCategViewHolder> 
     public void onBindViewHolder(@NonNull MyCategViewHolder holder, int position) {
         String nomCategorie = (String) categories.keySet().toArray()[position];
         //
-        /*
-        int idDrawable = categories.get(position).getIdImage();
+        int idDrawable = categories.get(nomCategorie);
         Glide.with(context)
                 .load(idDrawable)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(25)))
@@ -53,7 +52,6 @@ public class MyCategListAdapter extends RecyclerView.Adapter<MyCategViewHolder> 
                 selectListener.onCategBtnClicked(nomCategorie);
             }
         });
-         */
     }
 
     @Override

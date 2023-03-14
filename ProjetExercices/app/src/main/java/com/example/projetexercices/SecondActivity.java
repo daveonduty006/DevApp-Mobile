@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -22,24 +21,16 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-import java.io.File;;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements MyCategSelectListener {
+public class SecondActivity extends AppCompatActivity {
 
-    private final static HashMap<String,Integer> CATEGORIES = new HashMap(Map.of(
-            "Abdominaux", R.drawable.abdominaux,
-            "Avant-Bras", R.drawable.avant_bras,
-            "Biceps", R.drawable.biceps,
-            "Cuisses", R.drawable.cuisses,
-            "Dos", R.drawable.dos,
-            "Pectoraux", R.drawable.pectoraux,
-            "Triceps", R.drawable.triceps
-    ));
-
+    private ArrayList<Exercice> exercices;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar myToolbar;
@@ -48,8 +39,9 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_second);
         setMyToolbar();
+        setIntentProcessing();
         try {
             setMyRecyclerView();
         } catch (IOException e) {
@@ -66,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
                 int id = menuItem.getItemId();
                 // Handle navigation view item clicks here
                 if (id == R.id.nav_item1) {
-                    Toast.makeText(MainActivity.this, "navItem1", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SecondActivity.this, "navItem1", Toast.LENGTH_SHORT).show();
                 } else if (id == R.id.nav_item2) {
                     // Handle item 2 click
                 } else if (id == R.id.nav_setting1) {
@@ -94,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2, LinearLayoutManager.VERTICAL, false);
         myRecyclerView.setLayoutManager(gridLayoutManager);
         //
+        ArrayList<Exercice> exercices = new ArrayList<>();
         File directory = this.getFilesDir();
         int idDrawable;
         Drawable drawable;
@@ -101,7 +94,8 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
         String fileName;
         File file;
         FileOutputStream fos;
-        for(int i=0; i < 7; i++){
+        for(int i=0; i < 7; i++) {
+            /*
             idDrawable = CATEGORIES.get(CATEGORIES.keySet().toArray()[i]);
             drawable = ContextCompat.getDrawable(this, idDrawable);
             bitmap = ((BitmapDrawable) drawable).getBitmap();
@@ -111,8 +105,29 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             fos.close();
         }
-        //
         myRecyclerView.setAdapter(new MyCategListAdapter(getApplicationContext(), CATEGORIES, this));
+             */
+        }
+    }
+
+    private void setIntentProcessing() {
+        String categorie = getIntent().getStringExtra("categorie");
+        switch(categorie) {
+            case "Abdominaux":
+                break;
+            case "Avant-Bras":
+                break;
+            case "Biceps":
+                break;
+            case "Cuisses":
+                break;
+            case "Dos":
+                break;
+            case "Pectoraux":
+                break;
+            case "Triceps":
+                break;
+        }
     }
 
     private void setMyToolbar() {
@@ -151,10 +166,4 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onCategBtnClicked(String categorie) {
-        Intent intent = new Intent(this, SecondActivity.class);
-        intent.putExtra("categorie", categorie);
-        startActivity(intent);
-    }
 }
