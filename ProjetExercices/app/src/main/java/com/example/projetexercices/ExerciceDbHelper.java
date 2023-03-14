@@ -72,10 +72,34 @@ public class ExerciceDbHelper extends SQLiteOpenHelper {
         return exercices;
     }
 
+    public List<Exercice> getAllByCateg(String categorie) {
+        List<Exercice> exercices = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + EXERCICE_TABLE + " WHERE " + COL_EXERCICE_CATEG + " = '" + categorie + "'";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) { // we move the cursor over the first row of its attached result set
+            do {
+                long id = cursor.getLong(0);
+                String nom = cursor.getString(1);
+                categorie = cursor.getString(2);
+                String description = cursor.getString(3);
+                String instructions = cursor.getString(4);
+                String urlVideo = cursor.getString(5);
+                String cheminImage = cursor.getString(6);
+                //
+                Exercice exercice = new Exercice(id, nom, categorie, description, instructions, urlVideo, cheminImage);
+                exercices.add(exercice);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return exercices;
+    }
+
     public Exercice getOne(long id) {
         Exercice exercice = new Exercice();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + EXERCICE_TABLE + " WHERE " + COL_EXERCICE_ID + " = " + id;
+        String query = "SELECT * FROM " + EXERCICE_TABLE + " WHERE " + COL_EXERCICE_ID + " = '" + id + "'";
         Cursor cursor = db.rawQuery(query, null);
         if (cursor.moveToFirst()) { // we move the cursor over the first row of its attached result set
             do {

@@ -32,13 +32,12 @@ public class MyCategListAdapter extends RecyclerView.Adapter<MyCategViewHolder> 
     @NonNull
     @Override
     public MyCategViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyCategViewHolder(LayoutInflater.from(context).inflate(R.layout.categorie_view, parent,  false));
+        return new MyCategViewHolder(LayoutInflater.from(context).inflate(R.layout.categorie_view, parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyCategViewHolder holder, int position) {
         String nomCategorie = (String) categories.keySet().toArray()[position];
-        //
         int idDrawable = categories.get(nomCategorie);
         Glide.with(context)
                 .load(idDrawable)

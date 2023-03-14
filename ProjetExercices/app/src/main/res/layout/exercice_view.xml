@@ -21,20 +21,34 @@
             android:scaleType="fitXY"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@id/exercice_desc_txtview"
+            app:layout_constraintRight_toLeftOf="@id/exercice_btn"/>
 
         <Button
             android:id="@+id/exercice_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="yo"
-            android:textSize="32sp"
             android:textColor="@color/black"
-            android:background="@drawable/white_border"
+            android:textStyle="bold"
+            android:backgroundTint="@color/toolbar_bg"
             app:layout_constraintLeft_toRightOf="@id/exercice_imageView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@id/exercice_desc_txtview"/>
+
+        <TextView
+            android:id="@+id/exercice_desc_txtview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="allo"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/exercice_imageView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_margin="4dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

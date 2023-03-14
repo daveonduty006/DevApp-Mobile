@@ -23,6 +23,19 @@ public class Exercice {
         this.cheminImage = cheminImage;
     }
 
+    @Override
+    public String toString() {
+        return "Exercice{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", categorie='" + categorie + '\'' +
+                ", description='" + description + '\'' +
+                ", instructions='" + instructions + '\'' +
+                ", urlVideo='" + urlVideo + '\'' +
+                ", cheminImage='" + cheminImage + '\'' +
+                '}';
+    }
+
     public long getId() {
         return id;
     }
