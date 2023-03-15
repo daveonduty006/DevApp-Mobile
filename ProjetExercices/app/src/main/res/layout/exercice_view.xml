@@ -22,7 +22,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toTopOf="@id/exercice_desc_txtview"
-            app:layout_constraintRight_toLeftOf="@id/exercice_btn"/>
+            app:layout_constraintRight_toLeftOf="@id/exercice_btn"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <Button
             android:id="@+id/exercice_btn"
@@ -35,7 +36,27 @@
             app:layout_constraintLeft_toRightOf="@id/exercice_imageView"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/exercice_desc_txtview"/>
+            app:layout_constraintBottom_toTopOf="@id/edit_btn"/>
+
+        <ImageButton
+            android:id="@+id/edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_edit_24"
+            app:layout_constraintTop_toBottomOf="@id/exercice_btn"
+            app:layout_constraintLeft_toRightOf="@id/exercice_imageView"
+            app:layout_constraintBottom_toTopOf="@id/exercice_desc_txtview"
+            app:layout_constraintRight_toLeftOf="@id/delete_btn"/>
+
+        <ImageButton
+            android:id="@+id/delete_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_delete_forever_24"
+            app:layout_constraintTop_toBottomOf="@id/exercice_btn"
+            app:layout_constraintLeft_toRightOf="@id/edit_btn"
+            app:layout_constraintBottom_toTopOf="@id/exercice_desc_txtview"
+            app:layout_constraintRight_toRightOf="parent"/>
 
         <TextView
             android:id="@+id/exercice_desc_txtview"

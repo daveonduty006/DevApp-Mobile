@@ -1,9 +1,12 @@
 package com.example.projetexercices;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -20,9 +24,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class CreerExerciceDialogFragment extends DialogFragment {
 
@@ -32,6 +45,8 @@ public class CreerExerciceDialogFragment extends DialogFragment {
     private Button choisirImageBtn;
     private Button creerBtn;
     private Button annulerBtn;
+
+    private EditText cheminImageEditTxt;
     private EditText lienVideoEditTxt;
     private EditText nomEditTxt;
     private EditText descEditTxt;
@@ -51,7 +66,8 @@ public class CreerExerciceDialogFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        imgView = view.findViewById(R.id.exercice_imageView);
+        imgView = view.findViewById(R.id.exercice_imageview);
+        cheminImageEditTxt = view.findViewById(R.id.chemin_image_exercice_edittext);
         lienVideoEditTxt = view.findViewById(R.id.lien_video_exercice_edittext);
         nomEditTxt = view.findViewById(R.id.nom_exercice_edittext);
         descEditTxt = view.findViewById(R.id.desc_exercice_textbox);
@@ -59,7 +75,7 @@ public class CreerExerciceDialogFragment extends DialogFragment {
         //
         spinner = view.findViewById(R.id.categ_exercice_spinner);
         categs = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.array_categs)));
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(getContext(),
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_item,
                 categs);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -75,16 +91,65 @@ public class CreerExerciceDialogFragment extends DialogFragment {
             }
         });
         //
-        choisirImageBtn = view.findViewById(R.id.creer_exercice_button);
+        choisirImageBtn = view.findViewById(R.id.choisir_exercice_image_button);
         choisirImageBtn.setOnClickListener(v -> openFileChooser());
+        creerBtn = view.findViewById(R.id.creer_exercice_button);
+        creerBtn.setOnClickListener(v -> creerExercice());
+        annulerBtn = view.findViewById(R.id.annuler_button);
+        annulerBtn.setOnClickListener(v -> dismiss());
+    }
 
-        movieImageView = view.findViewById(R.id.movie_image_view);
-        movieTitleEditText = view.findViewById(R.id.movie_title_edit_text);
-        chooseImageButton = view.findViewById(R.id.choose_image_button);
-        createMovieButton = view.findViewById(R.id.create_movie_button);
+    private void creerExercice() {
+        String cheminImg = cheminImageEditTxt.getText().toString();
+        String lienVideo = lienVideoEditTxt.getText().toString();
+        String instructions = instrEditTxt.getText().toString();
+        String description = descEditTxt.getText().toString();
+        String categorie = categChoisi;
+        String nom = nomEditTxt.getText().toString();
+        if(!cheminImg.isEmpty() && !lienVideo.isEmpty() && !instructions.isEmpty() &&
+           !description.isEmpty() && !categorie.isEmpty() && !nom.isEmpty()) {
+            Exercice exercice = new Exercice(-1, nom, categorie, description, instructions, lienVideo, cheminImg);
+            ExerciceDbHelper exerciceDbHelper = new ExerciceDbHelper(requireContext());
+            exerciceDbHelper.addOne(exercice);
+            dismiss();
+            if(getActivity() != null) {
+                getActivity().finish();
+            }
+        } else {
+            Toast.makeText(requireContext(), "Tous les champs doivent remplis", Toast.LENGTH_SHORT).show();
+        }
+    }
 
-        chooseImageButton.setOnClickListener(v -> openFileChooser());
-        createMovieButton.setOnClickListener(v -> createMovie());
+    private void enregistrerImageDansStockageInterne(Uri uri, String uniqueFileName) throws IOException {
+        InputStream inputStream = requireContext().getContentResolver().openInputStream(uri);
+        File directory = requireContext().getFilesDir();
+        File imageFile = new File(directory, uniqueFileName);
+        //
+        OutputStream outputStream = new FileOutputStream(imageFile);
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        inputStream.close();
+        outputStream.close();
+        //
+        String cheminImage = imageFile.getAbsolutePath();
+        cheminImageEditTxt.setText(cheminImage);
+        imgView.setImageURI(uri);
+    }
+
+    private String donnerNomUniquePourImage() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault());
+        String fileName = "image_" + dateFormat.format(new Date()) + ".png";
+        return fileName;
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        fileChooserLauncher.launch(Intent.createChooser(intent, "Choisissez l'image du nouvel exercice"));
     }
 
     private ActivityResultLauncher<Intent> fileChooserLauncher = registerForActivityResult(
@@ -94,20 +159,14 @@ public class CreerExerciceDialogFragment extends DialogFragment {
                     Intent data = result.getData();
                     if (data != null && data.getData() != null) {
                         Uri uri = data.getData();
-                        // Use the selectedFileUri to perform further operations, e.g., read the file or display its content
+                        String uniqueFileName = donnerNomUniquePourImage();
+                        try {
+                            enregistrerImageDansStockageInterne(uri, uniqueFileName);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
             });
 
-    private void openFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 }

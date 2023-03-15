@@ -20,11 +20,15 @@ public class MyExerciceListAdapter extends RecyclerView.Adapter<MyExerciceViewHo
     Context context;
     List<Exercice> exercices;
     MyExerciceSelectListener selectListener;
+    MyModifierSelectListener selectModifyListener;
+    MyDeleteSelectListener selectDeleteListener;
 
-    public MyExerciceListAdapter(Context context, List<Exercice> exercices, MyExerciceSelectListener selectListener) {
+    public MyExerciceListAdapter(Context context, List<Exercice> exercices, MyExerciceSelectListener selectListener, MyModifierSelectListener selectModifyListener, MyDeleteSelectListener selectDeleteListener) {
         this.context = context;
         this.exercices = exercices;
         this.selectListener = selectListener;
+        this.selectModifyListener = selectModifyListener;
+        this.selectDeleteListener = selectDeleteListener;
     }
 
     @NonNull
@@ -47,6 +51,18 @@ public class MyExerciceListAdapter extends RecyclerView.Adapter<MyExerciceViewHo
             @Override
             public void onClick(View view) {
                 selectListener.onExerciceBtnClicked(exercice);
+            }
+        });
+        holder.edit_imgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectModifyListener.onModifierImgBtnClicked(exercice);
+            }
+        });
+        holder.delete_imgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectDeleteListener.onSupprimerImgBtnClicked(exercice, position);
             }
         });
         holder.textView.setText(exercice.getDescription());

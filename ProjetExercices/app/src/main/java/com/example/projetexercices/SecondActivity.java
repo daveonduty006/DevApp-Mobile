@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SecondActivity extends AppCompatActivity implements MyExerciceSelectListener {
+public class SecondActivity extends AppCompatActivity implements MyExerciceSelectListener, MyModifierSelectListener, MyDeleteSelectListener {
 
     private ExerciceDbHelper exerciceDbHelper;
     private List<Exercice> exercices;
@@ -66,7 +66,8 @@ public class SecondActivity extends AppCompatActivity implements MyExerciceSelec
         floatAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ;
+                CreerExerciceDialogFragment dialogFragment = new CreerExerciceDialogFragment();
+                dialogFragment.show(getSupportFragmentManager(), "CreerExerciceDialogFragment");
             }
         });
     }
@@ -105,7 +106,7 @@ public class SecondActivity extends AppCompatActivity implements MyExerciceSelec
     private void setMyRecyclerView() throws IOException {
         myRecyclerView = findViewById(R.id.my_ex_recyclerView);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerView.setAdapter(new MyExerciceListAdapter(getApplicationContext(), exercices, this));
+        myRecyclerView.setAdapter(new MyExerciceListAdapter(getApplicationContext(), exercices, this, this, this));
     }
 
     private void setIntentProcessing() {
@@ -158,5 +159,16 @@ public class SecondActivity extends AppCompatActivity implements MyExerciceSelec
     @Override
     public void onExerciceBtnClicked(Exercice exercice) {
         Toast.makeText(this, exercice.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSupprimerImgBtnClicked(Exercice exercice, int position) {
+        ExerciceDbHelper exerciceDbHelper1 = new ExerciceDbHelper(this);
+        exerciceDbHelper1.deleteOne(exercice.getId());
+        finish();
+    }
+
+    @Override
+    public void onModifierImgBtnClicked(Exercice exercice) {
     }
 }
