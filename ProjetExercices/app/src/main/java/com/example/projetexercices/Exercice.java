@@ -1,6 +1,11 @@
 package com.example.projetexercices;
 
-public class Exercice {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Exercice implements Parcelable {
 
     private long id;
     private String nom;
@@ -92,4 +97,43 @@ public class Exercice {
         this.cheminImage = cheminImage;
     }
 
+    //////////////////////////////////////////////////////////////////////////
+
+    protected Exercice(Parcel in) {
+        id = in.readLong();
+        nom = in.readString();
+        categorie = in.readString();
+        description = in.readString();
+        instructions = in.readString();
+        urlVideo = in.readString();
+        cheminImage = in.readString();
+    }
+
+    public static final Creator<Exercice> CREATOR = new Creator<Exercice>() {
+        @Override
+        public Exercice createFromParcel(Parcel in) {
+            return new Exercice(in);
+        }
+
+        @Override
+        public Exercice[] newArray(int size) {
+            return new Exercice[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeString(nom);
+        parcel.writeString(categorie);
+        parcel.writeString(description);
+        parcel.writeString(instructions);
+        parcel.writeString(urlVideo);
+        parcel.writeString(cheminImage);
+    }
 }

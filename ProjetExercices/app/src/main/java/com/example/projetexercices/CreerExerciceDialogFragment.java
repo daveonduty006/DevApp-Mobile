@@ -53,8 +53,22 @@ public class CreerExerciceDialogFragment extends DialogFragment {
     private EditText instrEditTxt;
     private Spinner spinner;
 
+    private ArrayList<Exercice> exercices;
+    private MyExerciceListAdapter myAdapter;
     private List<String> categs;
     private String categChoisi;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Get the variables passed from the hosting activity
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            exercices = bundle.getParcelableArrayList("exercices");
+            myAdapter = bundle.getParcelable("adapter");
+        }
+    }
 
     @Nullable
     @Override
@@ -65,7 +79,7 @@ public class CreerExerciceDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //
         imgView = view.findViewById(R.id.exercice_imageview);
         cheminImageEditTxt = view.findViewById(R.id.chemin_image_exercice_edittext);
         lienVideoEditTxt = view.findViewById(R.id.lien_video_exercice_edittext);
@@ -99,6 +113,11 @@ public class CreerExerciceDialogFragment extends DialogFragment {
         annulerBtn.setOnClickListener(v -> dismiss());
     }
 
+    private void modifierRecyclerView(Exercice exercice) {
+        exercices.add(exercice);
+        myAdapter.notifyItemInserted(exercices.size() - 1);
+    }
+
     private void creerExercice() {
         String cheminImg = cheminImageEditTxt.getText().toString();
         String lienVideo = lienVideoEditTxt.getText().toString();
@@ -111,10 +130,17 @@ public class CreerExerciceDialogFragment extends DialogFragment {
             Exercice exercice = new Exercice(-1, nom, categorie, description, instructions, lienVideo, cheminImg);
             ExerciceDbHelper exerciceDbHelper = new ExerciceDbHelper(requireContext());
             exerciceDbHelper.addOne(exercice);
+            //
+            modifierRecyclerView(exercice);
+            //
             dismiss();
+            Toast.makeText(requireContext(), "Exercice "+exercice.getNom()+" créé", Toast.LENGTH_SHORT).show();
+            /*
             if(getActivity() != null) {
+                Toast.makeText(requireContext(), "Exercice "+exercice.getNom()+" créé", Toast.LENGTH_SHORT).show();
                 getActivity().finish();
             }
+            */
         } else {
             Toast.makeText(requireContext(), "Tous les champs doivent remplis", Toast.LENGTH_SHORT).show();
         }
@@ -153,20 +179,21 @@ public class CreerExerciceDialogFragment extends DialogFragment {
     }
 
     private ActivityResultLauncher<Intent> fileChooserLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    Intent data = result.getData();
-                    if (data != null && data.getData() != null) {
-                        Uri uri = data.getData();
-                        String uniqueFileName = donnerNomUniquePourImage();
-                        try {
-                            enregistrerImageDansStockageInterne(uri, uniqueFileName);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+                if (data != null && data.getData() != null) {
+                    Uri uri = data.getData();
+                    String uniqueFileName = donnerNomUniquePourImage();
+                    try {
+                        enregistrerImageDansStockageInterne(uri, uniqueFileName);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
                     }
                 }
-            });
+            }
+        }
+    );
 
 }

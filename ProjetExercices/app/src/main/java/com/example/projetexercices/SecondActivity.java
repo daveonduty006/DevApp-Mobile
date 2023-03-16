@@ -44,6 +44,7 @@ public class SecondActivity extends AppCompatActivity implements MyExerciceSelec
     private Toolbar myToolbar;
     private TextView selectedCategTxtView;
     private RecyclerView myRecyclerView;
+    private MyExerciceListAdapter myAdapter;
     private FloatingActionButton floatAddBtn;
 
     @Override
@@ -67,6 +68,10 @@ public class SecondActivity extends AppCompatActivity implements MyExerciceSelec
             @Override
             public void onClick(View view) {
                 CreerExerciceDialogFragment dialogFragment = new CreerExerciceDialogFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelableArrayList("exercices", (ArrayList) exercices);
+                bundle.putParcelable("adapter", myAdapter);
+                dialogFragment.setArguments(bundle);
                 dialogFragment.show(getSupportFragmentManager(), "CreerExerciceDialogFragment");
             }
         });
@@ -106,7 +111,8 @@ public class SecondActivity extends AppCompatActivity implements MyExerciceSelec
     private void setMyRecyclerView() throws IOException {
         myRecyclerView = findViewById(R.id.my_ex_recyclerView);
         myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        myRecyclerView.setAdapter(new MyExerciceListAdapter(getApplicationContext(), exercices, this, this, this));
+        myAdapter = new MyExerciceListAdapter(getApplicationContext(), exercices, this, this, this);
+        myRecyclerView.setAdapter(myAdapter);
     }
 
     private void setIntentProcessing() {
@@ -165,10 +171,20 @@ public class SecondActivity extends AppCompatActivity implements MyExerciceSelec
     public void onSupprimerImgBtnClicked(Exercice exercice, int position) {
         ExerciceDbHelper exerciceDbHelper1 = new ExerciceDbHelper(this);
         exerciceDbHelper1.deleteOne(exercice.getId());
-        finish();
+        int indexExerciceSupprime = exercices.indexOf(exercice);
+        exercices.remove(indexExerciceSupprime);
+        myAdapter.notifyItemRemoved(position);
+        Toast.makeText(this, "Exercice "+exercice.getNom()+" supprimé", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onModifierImgBtnClicked(Exercice exercice) {
+        ModifierExerciceDialogFragment dialogFragment = new ModifierExerciceDialogFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("exercice", exercice);
+        bundle.putParcelableArrayList("exercices", (ArrayList) exercices);
+        bundle.putParcelable("adapter", myAdapter);
+        dialogFragment.setArguments(bundle);
+        dialogFragment.show(getSupportFragmentManager(), "ModifierExerciceDialogFragment");
     }
 }

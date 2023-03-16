@@ -14,21 +14,21 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/exercice_imageview"
+            android:id="@+id/exercice_imageview_edit"
             android:layout_width="400dp"
             android:layout_height="200dp"
             android:scaleType="fitXY"
             tools:srcCompat="@tools:sample/avatars" />
 
         <EditText
-            android:id="@+id/chemin_image_exercice_edittext"
+            android:id="@+id/chemin_image_exercice_edittext_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:clickable="false" />
 
         <Button
-            android:id="@+id/choisir_exercice_image_button"
+            android:id="@+id/choisir_exercice_image_button_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -36,7 +36,7 @@
             android:text="Choisir image de l'exercice" />
 
         <EditText
-            android:id="@+id/lien_video_exercice_edittext"
+            android:id="@+id/lien_video_exercice_edittext_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Lien Youtube de l'exercice ici"
@@ -56,7 +56,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/nom_exercice_edittext"
+            android:id="@+id/nom_exercice_edittext_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -75,7 +75,7 @@
             android:textStyle="bold" />
 
         <Spinner
-            android:id="@+id/categ_exercice_spinner"
+            android:id="@+id/categ_exercice_spinner_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -92,7 +92,7 @@
             android:textStyle="bold"  />
 
         <EditText
-            android:id="@+id/desc_exercice_textbox"
+            android:id="@+id/desc_exercice_textbox_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -113,7 +113,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/instr_exercice_textbox"
+            android:id="@+id/instr_exercice_textbox_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -130,22 +130,22 @@
             android:layout_marginTop="16dp">
 
             <Button
-                android:id="@+id/creer_exercice_button"
+                android:id="@+id/modifier_exercice_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ajouter exercice"
+                android:text="Modifier exercice"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/annuler_button"
+                app:layout_constraintRight_toLeftOf="@id/annuler_button_edit"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <Button
-                android:id="@+id/annuler_button"
+                android:id="@+id/annuler_button_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Annuler"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/creer_exercice_button"
+                app:layout_constraintLeft_toRightOf="@id/modifier_exercice_button"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
