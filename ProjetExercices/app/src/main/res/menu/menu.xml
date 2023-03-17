@@ -7,4 +7,9 @@
         android:title="Catégories"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/contact_tab"
+        android:title="Contactez-nous"
+        app:showAsAction="always"/>
+
 </menu>

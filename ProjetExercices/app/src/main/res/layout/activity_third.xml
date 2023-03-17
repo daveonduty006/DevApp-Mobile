@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SecondActivity"
+        tools:context=".ThirdActivity"
         android:background="#221F1F">
 
         <androidx.appcompat.widget.Toolbar
@@ -19,12 +19,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/selected_categ_txtview"
+            app:layout_constraintBottom_toTopOf="@id/selected_exercice_txtview"
             android:theme="@style/Theme.AppCompat.DayNight"
             android:background="@color/black"/>
 
         <TextView
-            android:id="@+id/selected_categ_txtview"
+            android:id="@+id/selected_exercice_txtview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="allo"
@@ -34,31 +34,21 @@
             app:layout_constraintTop_toBottomOf="@id/my_toolbar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/my_ex_recyclerView"
+            app:layout_constraintBottom_toTopOf="@id/my_expandable_listview"
             android:layout_margin="8dp"
-            android:gravity="center"
-            />
+            android:gravity="center" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/my_ex_recyclerView"
+        <ExpandableListView
+            android:id="@+id/my_expandable_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/selected_categ_txtview"
+            app:layout_constraintTop_toBottomOf="@id/selected_exercice_txtview"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:paddingBottom="152dp"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_exercice_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fabSize="mini"
-            android:src="@drawable/baseline_add_24"
-            app:backgroundTint="@color/white"
-            android:elevation="16dp"
-            android:layout_margin="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"/>
+            android:layout_marginTop="16dp"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="0.5dp"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

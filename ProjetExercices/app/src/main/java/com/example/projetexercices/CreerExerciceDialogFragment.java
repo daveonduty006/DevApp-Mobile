@@ -55,6 +55,7 @@ public class CreerExerciceDialogFragment extends DialogFragment {
 
     private ArrayList<Exercice> exercices;
     private MyExerciceListAdapter myAdapter;
+    private String categorieOrigine;
     private List<String> categs;
     private String categChoisi;
 
@@ -67,6 +68,7 @@ public class CreerExerciceDialogFragment extends DialogFragment {
         if (bundle != null) {
             exercices = bundle.getParcelableArrayList("exercices");
             myAdapter = bundle.getParcelable("adapter");
+            categorieOrigine = bundle.getString("categorie");
         }
     }
 
@@ -94,6 +96,8 @@ public class CreerExerciceDialogFragment extends DialogFragment {
                 categs);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(dataAdapter);
+        int indexCategOrigine = categs.indexOf(categorieOrigine);
+        spinner.setSelection(indexCategOrigine);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

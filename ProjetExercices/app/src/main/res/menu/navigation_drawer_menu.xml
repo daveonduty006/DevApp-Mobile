@@ -4,20 +4,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_item1"
-            android:title="Item 1" />
+            android:id="@+id/email_nav_item"
+            android:title="email" />
         <item
-            android:id="@+id/nav_item2"
-            android:title="Item 2" />
+            android:id="@+id/phone_nav_item"
+            android:title="téléphone" />
     </group>
-    <item android:title="Settings">
-        <menu>
-            <item
-                android:id="@+id/nav_setting1"
-                android:title="Setting 1" />
-            <item
-                android:id="@+id/nav_setting2"
-                android:title="Setting 2" />
-        </menu>
-    </item>
+
 </menu>

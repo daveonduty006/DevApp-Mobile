@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -281,14 +282,14 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int id = menuItem.getItemId();
                 // Handle navigation view item clicks here
-                if (id == R.id.nav_item1) {
-                    Toast.makeText(MainActivity.this, "navItem1", Toast.LENGTH_SHORT).show();
-                } else if (id == R.id.nav_item2) {
-                    // Handle item 2 click
-                } else if (id == R.id.nav_setting1) {
-                    // Handle setting 1 click
-                } else if (id == R.id.nav_setting2) {
-                    // Handle setting 2 click
+                if (id == R.id.email_nav_item) {
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+                    emailIntent.setData(Uri.parse("mailto:email@example.com")); // Replace with the actual email address
+                    startActivity(Intent.createChooser(emailIntent, "Send email"));
+                } else if (id == R.id.phone_nav_item) {
+                    Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                    callIntent.setData(Uri.parse("tel:+1234567890")); // Replace with the actual phone number
+                    startActivity(callIntent);
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
@@ -360,6 +361,7 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
         myToolbar = findViewById(R.id.my_toolbar);
         myToolbar.setBackgroundColor(getResources().getColor(R.color.toolbar_bg, getTheme()));
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @Override
@@ -377,10 +379,14 @@ public class MainActivity extends AppCompatActivity implements MyCategSelectList
         int id = item.getItemId();
         // Handle menu item clicks
         if (id == R.id.listerCateg_tab) {
-            Toast.makeText(this, "allo", Toast.LENGTH_SHORT).show();
-            return true;
+            if (!this.getClass().getSimpleName().equals(MainActivity.class.getSimpleName())) {
+                Intent mainActivityIntent = new Intent(this, MainActivity.class);
+                mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(mainActivityIntent);
+                finish();
+            }
         }
-        if (id == android.R.id.home) {
+        if (id == R.id.contact_tab || id == android.R.id.home) {
             DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
                 drawerLayout.closeDrawer(GravityCompat.START);
