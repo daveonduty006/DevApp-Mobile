@@ -45,7 +45,8 @@ public class MyExerciceListAdapter extends RecyclerView.Adapter<MyExerciceViewHo
         File image = new File(exercice.getCheminImage());
         Glide.with(context)
                 .load(image)
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(25)))
+                .centerCrop()
+                //.apply(RequestOptions.bitmapTransform(new RoundedCorners(25)))
                 .into(holder.imageView);
         //
         holder.button.setText(exercice.getNom());

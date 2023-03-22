@@ -41,7 +41,8 @@ public class MyCategListAdapter extends RecyclerView.Adapter<MyCategViewHolder> 
         int idDrawable = categories.get(nomCategorie);
         Glide.with(context)
                 .load(idDrawable)
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(25)))
+                .centerCrop()
+                //.apply(RequestOptions.bitmapTransform(new RoundedCorners(25)))
                 .into(holder.imageView);
         //
         holder.button.setText(nomCategorie);
