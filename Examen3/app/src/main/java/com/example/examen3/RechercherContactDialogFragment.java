@@ -17,8 +17,6 @@ import androidx.fragment.app.DialogFragment;
 public class RechercherContactDialogFragment extends DialogFragment {
 
     private Button fermerBtn;
-
-    private EditText rechercheEditTxt;
     private EditText nomEditTxt;
     private EditText prenomEditTxt;
     private EditText telephoneEditTxt;
@@ -43,6 +41,7 @@ public class RechercherContactDialogFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
+            contact = bundle.getParcelable("contact");
         }
     }
 
@@ -56,35 +55,14 @@ public class RechercherContactDialogFragment extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         nomEditTxt = view.findViewById(R.id.nom_contact_recherche_edittext);
+        nomEditTxt.setText(contact.getNom());
         nomEditTxt.setClickable(false);
         prenomEditTxt = view.findViewById(R.id.prenom_contact_recherche_edittext);
+        prenomEditTxt.setText(contact.getPrenom());
         prenomEditTxt.setClickable(false);
         telephoneEditTxt = view.findViewById(R.id.telephone_contact_recherche_edittext);
+        telephoneEditTxt.setText(contact.getTelephone());
         telephoneEditTxt.setClickable(false);
-        //
-        rechercheEditTxt = view.findViewById(R.id.recherche_edittext);
-        rechercheEditTxt.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //
-            }
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String telephone = rechercheEditTxt.getText().toString();
-                ContactDbHelper contactDbHelper = new ContactDbHelper(requireContext());
-                Contact contactRecherche = contactDbHelper.getOneByTelephone(telephone);
-                if(contactRecherche.getTelephone() != "") {
-                    contact = contactRecherche;
-                    nomEditTxt.setText(contact.getNom());
-                    prenomEditTxt.setText(contact.getPrenom());
-                    telephoneEditTxt.setText(contact.getTelephone());
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable editable) {
-                //
-            }
-        });
         //
         fermerBtn = view.findViewById(R.id.fermer_button);
         fermerBtn.setOnClickListener(v -> dismiss());

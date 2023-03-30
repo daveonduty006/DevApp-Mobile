@@ -1,6 +1,8 @@
 package com.example.examen3;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,15 +47,39 @@ public class AjouterContactDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //
-        nomEditTxt = view.findViewById(R.id.nom_contact_edittext);
-        prenomEditTxt = view.findViewById(R.id.prenom_contact_edittext);
-        telephoneEditTxt = view.findViewById(R.id.telephone_contact_edittext);
-        //
         ajouterBtn = view.findViewById(R.id.creer_contact_button);
         ajouterBtn.setOnClickListener(v -> ajouterContact());
         annulerBtn = view.findViewById(R.id.annuler_button);
         annulerBtn.setOnClickListener(v -> dismiss());
+        //
+        nomEditTxt = view.findViewById(R.id.nom_contact_edittext);
+        prenomEditTxt = view.findViewById(R.id.prenom_contact_edittext);
+        //
+        telephoneEditTxt = view.findViewById(R.id.telephone_contact_edittext);
+        telephoneEditTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!isValidPhoneNumber(s.toString())) {
+                    telephoneEditTxt.setError("Format de numéro de téléphone invalide");
+                    ajouterBtn.setEnabled(false);
+                } else {
+                    ajouterBtn.setEnabled(true);
+                }
+            }
+        });
+    }
+
+    private boolean isValidPhoneNumber(String phoneNumber) {
+        String pattern = "^\\d-\\d{3}-\\d{3}-\\d{4}$";
+        return phoneNumber.matches(pattern);
     }
 
     private void ajouterContact() {

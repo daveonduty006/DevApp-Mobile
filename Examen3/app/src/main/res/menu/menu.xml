@@ -3,18 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/lister_tab"
-        android:title="Lister"
-        app:showAsAction="always"/>
+        android:id="@+id/action_search"
+        android:title="rechercher"
+        android:icon="@drawable/baseline_search_24"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
 
     <item
-        android:id="@+id/rechercher_tab"
-        android:title="Rechercher"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/ajouter_tab"
+        android:id="@+id/action_add"
         android:title="ajouter"
+        android:icon="@drawable/baseline_person_add_24"
         app:showAsAction="always"/>
 
 </menu>

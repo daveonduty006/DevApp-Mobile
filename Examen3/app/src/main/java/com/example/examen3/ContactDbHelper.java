@@ -97,21 +97,20 @@ public class ContactDbHelper extends SQLiteOpenHelper {
     public Contact getOneByTelephone(String telephone) {
         Contact contact = new Contact();
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT * FROM " + CONTACT_TABLE + " WHERE " + COL_CONTACT_TELEPHONE + " = '" + telephone + "'";
-        Cursor cursor = db.rawQuery(query, null);
+        String query = "SELECT * FROM " + CONTACT_TABLE + " WHERE " + COL_CONTACT_TELEPHONE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{telephone});
         if (cursor.moveToFirst()) { // we move the cursor over the first row of its attached result set
             long id = cursor.getLong(0);
             String nom = cursor.getString(1);
             String prenom = cursor.getString(2);
-            //
-            contact.setId(id);
-            contact.setNom(nom);
-            contact.setPrenom(prenom);
-            contact.setTelephone(telephone);
+            cursor.close();
+            db.close();
+            return new Contact(id, nom, prenom, telephone);
+        } else {
+            cursor.close();
+            db.close();
+            return null;
         }
-        cursor.close();
-        db.close();
-        return contact;
     }
 
     public Contact getOne(long id) {
@@ -167,15 +166,15 @@ public class ContactDbHelper extends SQLiteOpenHelper {
 
     String nom1 = "Normandin";
     String prenom1 = "David";
-    String telephone1 = "14385236969";
+    String telephone1 = "1-438-523-6969";
     //
     String nom2 = "Moreau";
     String prenom2 = "Richard";
-    String telephone2 = "14385236969";
+    String telephone2 = "1-123-456-7890";
     //
     String nom3 = "LeMagnifique";
     String prenom3 = "Kiwi";
-    String telephone3 = "14385236969";
+    String telephone3 = "1-098-765-4321";
     //
 }
 

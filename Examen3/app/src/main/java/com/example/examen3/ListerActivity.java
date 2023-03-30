@@ -1,6 +1,7 @@
 package com.example.examen3;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,7 +64,35 @@ public class ListerActivity extends AppCompatActivity implements MyPhoneSelectLi
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
+        //
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint("Chercher par #téléphone...");
+        //
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                String telephone = query;
+                ContactDbHelper contactDbHelper = new ContactDbHelper(getApplicationContext());
+                Contact contactRecherche = contactDbHelper.getOneByTelephone(telephone);
+                if(contactRecherche != null) {
+                    RechercherContactDialogFragment rechercherDialogFragment = new RechercherContactDialogFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("contact", contactRecherche);
+                    rechercherDialogFragment.setArguments(bundle);
+                    rechercherDialogFragment.show(getSupportFragmentManager(), "RechercherContactDialogFragment");
+                }else {
+                    Toast.makeText(getApplicationContext(), "Numéro de téléphone inconnu", Toast.LENGTH_LONG).show();
+                }
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Perform search action as the user types in the search bar
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -73,21 +102,13 @@ public class ListerActivity extends AppCompatActivity implements MyPhoneSelectLi
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         // Handle menu item clicks
-        if (id == R.id.lister_tab) {
-        }
-        if (id == R.id.ajouter_tab) {
+        if (id == R.id.action_add) {
             AjouterContactDialogFragment ajouterDialogFragment = new AjouterContactDialogFragment();
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("contacts", (ArrayList) contacts);
             bundle.putParcelable("adapter", myAdapter);
             ajouterDialogFragment.setArguments(bundle);
             ajouterDialogFragment.show(getSupportFragmentManager(), "AjouterContactDialogFragment");
-        }
-        if (id == R.id.rechercher_tab) {
-            RechercherContactDialogFragment rechercherDialogFragment = new RechercherContactDialogFragment();
-            Bundle bundle = new Bundle();
-            rechercherDialogFragment.setArguments(bundle);
-            rechercherDialogFragment.show(getSupportFragmentManager(), "RechercherContactDialogFragment");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -104,6 +125,7 @@ public class ListerActivity extends AppCompatActivity implements MyPhoneSelectLi
 
     @Override
     public void onPhoneImgBtnClicked(String phoneNumber) {
+        phoneNumber.replace("-", "");
         Intent callIntent = new Intent(Intent.ACTION_DIAL);
         callIntent.setData(Uri.parse("tel:+"+phoneNumber)); // Replace with the actual phone number
         startActivity(callIntent);

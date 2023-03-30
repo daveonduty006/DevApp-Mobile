@@ -78,7 +78,8 @@
             android:paddingLeft="4dp"
             android:background="@drawable/black_border"
             android:minHeight="30dp"
-            android:inputType="text" />
+            android:hint="ex: 1-111-111-1111"
+            android:inputType="phone"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
