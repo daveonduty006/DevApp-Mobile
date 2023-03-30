@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardBackgroundColor="#302B2B"
+    android:layout_margin="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <LinearLayout
+            android:id="@+id/contact_fullname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/contact_textview">
+
+            <TextView
+                android:id="@+id/nom_complet_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="allo"
+                android:textColor="@color/white"
+                android:textSize="32sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/contact_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="allo"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@id/contact_fullname"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/contact_btns"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+
+        <LinearLayout
+            android:id="@+id/contact_btns"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/contact_fullname"
+            app:layout_constraintLeft_toRightOf="@id/contact_textview"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageButton
+                android:id="@+id/contact_phone_imagebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_phone_24"
+                android:layout_marginRight="20dp"/>
+
+            <ImageButton
+                android:id="@+id/contact_delete_imagebtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_delete_forever_24"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
